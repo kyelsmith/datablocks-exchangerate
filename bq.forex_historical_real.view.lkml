@@ -160,6 +160,15 @@ view: bq_forex_historical_real {
     sql: ${aud_usd} ;;
   }
 
+  # Calculated from the inverse so we can see a graph go up instead of down and be happy! - KJS
+  measure: usdaud {
+    label: "USD/AUD"
+    description: "1 US Dollars = X Australian Dollar"
+    value_format_name: decimal_4
+    type:  max
+    sql: 1/${aud_usd} ;;
+  }
+
   measure: chfjpy {
     label: "CHF/JPY"
     description: "1 Swiss Franc = X Japanese Yen"
@@ -193,6 +202,14 @@ view: bq_forex_historical_real {
     description: "1 Euro = X US Dollars"
     type:  max
     sql: ${eur_usd} ;;
+  }
+
+  # Calculated AUD vs EUR based on USD transition - KJS
+  measure: euraud {
+    label: "EUR/AUD"
+    description: "1 Euro = X Australian Dollars"
+    type:  max
+    sql: ${eur_usd}*1/${aud_usd} ;;
   }
 
   measure: gbpchf {
@@ -242,6 +259,14 @@ view: bq_forex_historical_real {
     description: "1 US dollar = X Japanese Yen"
     type: max
     sql: ${usd_jpy} ;;
+  }
+
+  # Calculated AUD vs EUR based on USD transition - KJS
+  measure: jpyaud {
+    label: "JPY/AUD"
+    description: "1 Japanese Yen = X US dollar"
+    type: max
+    sql: 1/(${usd_jpy} * ${aud_usd}) ;;
   }
 
 }
